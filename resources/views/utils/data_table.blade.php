@@ -1,6 +1,25 @@
 <script>
     $(document).ready(function() {
         $('#myTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'csv', 'excel', 'pdf', {
+                    extend: 'copy',
+                    text: 'Copier',
+                    key: {
+                        key: 'c',
+                        altkey: true
+                    }
+                },
+                {
+                    extend: 'print',
+                    text: 'Imprimer',
+                    key: {
+                        key: 'p',
+                        altkey: true
+                    }
+                }
+            ],
             language: {
                 processing: "Traitement en cours...",
                 search: "Rechercher&nbsp;:",
@@ -21,7 +40,7 @@
                 aria: {
                     sortAscending: ": activer pour trier la colonne par ordre croissant",
                     sortDescending: ": activer pour trier la colonne par ordre décroissant"
-                }
+                },
             }
         });
     });

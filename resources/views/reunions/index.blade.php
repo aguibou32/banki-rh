@@ -3,7 +3,7 @@
     @include('utils.to_french')
     <main id="main" class="main">
 
-        @if ($reunions->isEmpty())
+        @if ($user->reunions->isEmpty())
             <div class="alert alert-primary alert-dismissible fade show" role="alert">
                 Liste des rapports de reunions est encore vide.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -40,7 +40,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            @can('éditer reunions')
+                            @can('editer reunions')
                                 <a href="{{ route('reunions.create') }}" class="btn btn-primary"><i
                                         class="bi bi-plus-circle">{{ ' ' }}</i>Ajouter</a>
                             @endcan
@@ -54,43 +54,79 @@
                                         <th scope="col">Titre</th>
                                         <th scope="col">Télécharger</th>
                                         <th scope="col">Crée le </th>
-                                        @can('editer réunions')
+                                        @can('editer reunions')
                                             <th scope="col">Actions</th>
                                         @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($reunions as $reunion)
-                                        <tr>
-                                            <td>{{ $reunion->titre }}</td>
-                                            <td>
-                                                @if ($reunion->fichier !== null)
-                                                    cliquer
-                                                    <a
-                                                        href="{{ route('telecharger_fichier_reunion', $reunion->fichier) }}">ici</a>
-                                                    !
-                                                @endif
-                                            </td>
 
-                                            <td>{{ $reunion->created_at->formatLocalized('%d %B %Y') }}</td>
-
-                                            @can('éditer reunions')
+                                    @if ($user->hasPermissionTo('voir tous les reunions'))
+                                        @foreach ($reunions as $reunion)
+                                            <tr>
+                                                <td>{{ $reunion->titre }}</td>
                                                 <td>
-                                                    <a href="{{ route('reunions.show', $reunion->id) }}"
-                                                        class="btn btn-transparent"><i class="bi bi-eye"></i></a>
-
-                                                    <a href="{{ route('reunions.edit', $reunion->id) }}"
-                                                        class="btn btn-transparent"><i class="bi bi-pencil-square"></i></a>
-                                                    <form method="POST" action="{{ route('reunions.destroy', $reunion->id) }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-transparent"><i
-                                                                class="bi bi-trash text-danger"></i></button>
-                                                    </form>
+                                                    @if ($reunion->fichier !== null)
+                                                        cliquer<a
+                                                            href="{{ route('telecharger_fichier_reunion', $reunion->fichier) }}">ici</a>
+                                                        !
+                                                    @endif
                                                 </td>
-                                            @endcan
-                                        </tr>
-                                    @endforeach
+
+                                                <td>{{ $reunion->created_at->formatLocalized('%d %B %Y') }}</td>
+
+                                                @can('editer reunions')
+                                                    <td>
+                                                        <a href="{{ route('reunions.show', $reunion->id) }}"
+                                                            class="btn btn-transparent"><i class="bi bi-eye"></i></a>
+
+                                                        <a href="{{ route('reunions.edit', $reunion->id) }}"
+                                                            class="btn btn-transparent"><i class="bi bi-pencil-square"></i></a>
+                                                        <form method="POST"
+                                                            action="{{ route('reunions.destroy', $reunion->id) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-transparent"><i
+                                                                    class="bi bi-trash text-danger"></i></button>
+                                                        </form>
+                                                    </td>
+                                                @endcan
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        @foreach ($user->reunions as $reunion)
+                                            <tr>
+                                                <td>{{ $reunion->titre }}</td>
+                                                <td>
+                                                    @if ($reunion->fichier !== null)
+                                                        cliquer<a
+                                                            href="{{ route('telecharger_fichier_reunion', $reunion->fichier) }}">ici</a>
+                                                        !
+                                                    @endif
+                                                </td>
+
+                                                <td>{{ $reunion->created_at->formatLocalized('%d %B %Y') }}</td>
+
+                                                @can('editer reunions')
+                                                    <td>
+                                                        <a href="{{ route('reunions.show', $reunion->id) }}"
+                                                            class="btn btn-transparent"><i class="bi bi-eye"></i></a>
+
+                                                        <a href="{{ route('reunions.edit', $reunion->id) }}"
+                                                            class="btn btn-transparent"><i class="bi bi-pencil-square"></i></a>
+                                                        <form method="POST"
+                                                            action="{{ route('reunions.destroy', $reunion->id) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-transparent"><i
+                                                                    class="bi bi-trash text-danger"></i></button>
+                                                        </form>
+                                                    </td>
+                                                @endcan
+                                            </tr>
+                                        @endforeach
+                                    @endif
+
                                 </tbody>
                             </table>
                         </div>
@@ -99,5 +135,5 @@
             </div>
         </section>
     </main>
-@include('utils.data_table')
+    @include('utils.data_table')
 @endsection

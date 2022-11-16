@@ -14,7 +14,6 @@ use Illuminate\Validation\Rule;
 
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
-use Maatwebsite\Excel\Facades\Excel;
 
 class UsersController extends Controller
 {
@@ -504,13 +503,5 @@ class UsersController extends Controller
             return redirect()->route("users.index")->with("message", "Vous avez reinitialiser le mot de passe de l'utilisateur");
         }
     }
-
-    public function export() 
-    {
-        return Excel::download(new UsersExport, 'users.xlsx');
-    }
-
-
-    
 
 }

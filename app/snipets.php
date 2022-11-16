@@ -51,7 +51,7 @@ public function __construct()
     $this->middleware('password.confirm', ['only' => ['create', 'store']] );
 }
 
-onclick="return confirm('Etes-vous de vouloir effectuer cette action ?');" 
+onclick="return confirm('Etes-vous sûr de vouloir effectuer cette action ?');" 
 
 
 $user = Auth::user();

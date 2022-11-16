@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reunion extends Model
+class Account extends Model
 {
     use HasFactory;
 
-    public function users()
+    public function transactions()
     {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(Transaction::class);
     }
 }

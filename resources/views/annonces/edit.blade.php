@@ -55,7 +55,7 @@
                                 <div class="row mb-3">
                                     <label for="inputNumber" class="col-sm-2 col-form-label">Fichier (Optionel)</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" name="fichier" type="file" id="formFile">
+                                        <input class="form-control @error('fichier') is-invalid @enderror" name="fichier" type="file" id="formFile">
                                         @error('fichier')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

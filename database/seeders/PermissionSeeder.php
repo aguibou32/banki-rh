@@ -14,6 +14,15 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
+        $permission = Permission::create(['name' => 'voir comptes']);
+        $permission = Permission::create(['name' => 'editer comptes']);
+
+        $permission = Permission::create(['name' => 'voir transactions']);
+        $permission = Permission::create(['name' => 'editer transactions']);
+
+        $permission = Permission::create(['name' => 'voir fiches de paie']);
+        $permission = Permission::create(['name' => 'editer fiches de paie']);
+
         $permission = Permission::create(['name' => 'voir pays']);
         $permission = Permission::create(['name' => 'editer pays']);
 
@@ -31,6 +40,7 @@ class PermissionSeeder extends Seeder
 
         // No need for voir reunions because everyone has to have this permission
         $permission = Permission::create(['name' => 'editer reunions']);
+        $permission = Permission::create(['name' => 'voir tous les reunions']);
 
         $permission = Permission::create(['name' => 'voir services']);
         $permission = Permission::create(['name' => 'editer services']);

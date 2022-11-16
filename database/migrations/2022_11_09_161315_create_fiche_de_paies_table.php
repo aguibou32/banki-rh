@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRapportsTable extends Migration
+class CreateFicheDePaiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateRapportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rapports', function (Blueprint $table) {
+        Schema::create('fiche_de_paies', function (Blueprint $table) {
             $table->id();
-            $table->string("type");
-            $table->date("date");
             $table->string("title");
-            $table->text("content");
-            $table->longText("rapport_file")->nullable();
-            $table->unsignedBigInteger("service_id")->nullable();
-            $table->foreign('service_id')
-            ->references('id')->on('services')
-            ->onDelete('SET NULL');
+            $table->double("montant");
+            $table->text("description");
+            $table->date("date");
+            $table->longText("fichier")->nullable();
+            $table->string("employee_confirmation")->default("non confirmé")->nullable;
+
+            $table->unsignedBigInteger("account_id")->nullable();
+            $table->double("account_number")->nullable();
 
             $table->unsignedBigInteger("user_id");
             $table->foreign('user_id')
@@ -41,6 +41,6 @@ class CreateRapportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rapports');
+        Schema::dropIfExists('fiche_de_paies');
     }
 }

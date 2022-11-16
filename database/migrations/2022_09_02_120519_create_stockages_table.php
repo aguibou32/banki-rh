@@ -16,7 +16,7 @@ class CreateStockagesTable extends Migration
         Schema::create('stockages', function (Blueprint $table) {
             $table->id();
             $table->string("titre");
-            $table->string("fichier");
+            $table->longText("fichier");
             $table->unsignedBigInteger("user_id");
             $table->foreign('user_id')
             ->references('id')->on('users')

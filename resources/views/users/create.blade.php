@@ -202,7 +202,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="inputPassword" class="col-sm-4 col-form-label">Description du role (Optionel)</label>
+                    <label for="inputPassword" class="col-sm-4 col-form-label">Description du role</label>
                     <div class="col-sm-8">
                         <textarea class="form-control" name="description" style="height: 100px">
                           {{ old('description') }}

@@ -117,5 +117,14 @@ class User extends Authenticatable
         return $this->hasMany(Rapport::class);
     }
 
+    public function reunions()
+    {
+        return $this->belongsToMany(Reunion::class);
+    }
+
+    public function fiches_de_paie()
+    {
+        return $this->hasMany(FicheDePaie::class);
+    }
    
 }

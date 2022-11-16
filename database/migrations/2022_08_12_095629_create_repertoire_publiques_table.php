@@ -16,7 +16,7 @@ class CreateRepertoirePubliquesTable extends Migration
         Schema::create('repertoire_publiques', function (Blueprint $table) {
             $table->id();
             $table->string("titre");
-            $table->string("fichier");
+            $table->longText("fichier");
             $table->timestamps();
         });
     }

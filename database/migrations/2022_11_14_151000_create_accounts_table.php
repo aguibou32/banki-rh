@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRepertoirePublicsTable extends Migration
+class CreateAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateRepertoirePublicsTable extends Migration
      */
     public function up()
     {
-        Schema::create('repertoire_publics', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->string("titre");
-            $table->longText("fichier");
+            $table->string("numero")->unique();
+            $table->double("solde");
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateRepertoirePublicsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('repertoire_publics');
+        Schema::dropIfExists('accounts');
     }
 }

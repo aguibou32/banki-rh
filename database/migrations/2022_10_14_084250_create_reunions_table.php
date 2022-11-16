@@ -17,8 +17,15 @@ class CreateReunionsTable extends Migration
             $table->id();
             $table->string("titre");
             $table->text("contenu");
-            $table->string("fichier")->nullable();
+            $table->longText("fichier")->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('reunion_user', function (Blueprint $table) {
+            $table->id();
+            $table->integer('reunion_id');
+            $table->integer('user_id');
+            $table->unique(['reunion_id', 'user_id']);
         });
     }
 
@@ -30,5 +37,6 @@ class CreateReunionsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('reunions');
+        Schema::dropIfExists('reunion_user');
     }
 }

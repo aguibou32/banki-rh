@@ -82,7 +82,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                        onclick="return confirm('Etes-vous de vouloir effectuer cette action ?');"
+                                                        onclick="return confirm('Etes-vous sûr de vouloir effectuer cette action ?');"
                                                         class="btn btn-transparent"><i
                                                             class="bi bi-trash text-danger"></i></button>
                                                 </form>

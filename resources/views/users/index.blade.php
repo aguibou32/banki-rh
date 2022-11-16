@@ -28,12 +28,6 @@
                                 </span></h5>
                             <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
                                 <div class="dataTable-top">
-                                    <div class="row">
-                                        <div class="col">
-                                            <a href="{{ route('users.export') }}" class="btn btn-primary ri-upload-2-fill">
-                                            </a>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="">
                                     <table id="myTable" class="display">

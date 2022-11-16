@@ -737,7 +737,7 @@
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit"
-                                                                    onclick="return confirm('Etes-vous de vouloir effectuer cette action ?');"
+                                                                    onclick="return confirm('Etes-vous sûr de vouloir effectuer cette action ?');"
                                                                     class="btn btn-transparent"><i
                                                                         class="bi bi-trash text-danger"></i></button>
                                                             </form>
@@ -759,9 +759,10 @@
                                                         <select class="form-select @error('role2') is-invalid @enderror"
                                                             name="role2">
                                                             @foreach ($roles as $role)
-                                                                @if (!($user->hasRole($role)))
-                                                                <option value="{{ $role->name }}">{{ $role->name }}
-                                                                </option>
+                                                                @if (!$user->hasRole($role))
+                                                                    <option value="{{ $role->name }}">
+                                                                        {{ $role->name }}
+                                                                    </option>
                                                                 @endif
                                                             @endforeach
                                                         </select>
@@ -805,7 +806,9 @@
                                                                 action="{{ route('users.permissions.remove', [$user->id, $user_permission->id]) }}">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" onclick="return confirm('Etes-vous de vouloir effectuer cette action ?');" class="btn btn-sm btn-warning">Revoquer</button>
+                                                                <button type="submit"
+                                                                    onclick="return confirm('Etes-vous sûr de vouloir effectuer cette action ?');"
+                                                                    class="btn btn-sm btn-warning">Revoquer</button>
                                                             </form>
                                                         </td>
                                                     </tr>
@@ -822,7 +825,7 @@
                                                     <div class="col-sm-8">
                                                         <select class="form-select" name="permission">
                                                             @foreach ($permissions as $permission)
-                                                                @if (!($user->hasPermissionTo($permission)))
+                                                                @if (!$user->hasPermissionTo($permission))
                                                                     <option value="{{ $permission->name }}">
                                                                         {{ $permission->name }}</option>
                                                                 @endif

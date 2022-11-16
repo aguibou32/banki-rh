@@ -24,7 +24,6 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Ajouter un rapport de réunion</h5>
-
                             <!-- General Form Elements -->
                             <form method="POST" action="{{ route('reunions.store') }}" enctype="multipart/form-data">
                                 @csrf
@@ -61,7 +60,7 @@
                                 <div class="row mb-3">
                                     <label for="inputNumber" class="col-sm-2 col-form-label">Fichier (Optionel)</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" name="fichier" type="file" id="formFile">
+                                        <input class="form-control @error('fichier') is-invalid @enderror" name="fichier" type="file" id="formFile">
                                         @error('fichier')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -76,7 +75,7 @@
                                         <button type="submit" class="btn btn-primary">Sauvegarder</button>
                                     </div>
                                 </div>
-                                
+
                             </form>
                         </div>
                     </div>

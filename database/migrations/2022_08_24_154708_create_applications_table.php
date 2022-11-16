@@ -22,8 +22,8 @@ class CreateApplicationsTable extends Migration
             $table->string("phone");
             $table->string("addresse");
             $table->text("motivation");
-            $table->string("cv");
-            $table->string("autre_documents")->nullable();
+            $table->longText("cv");
+            $table->longText("autre_documents")->nullable();
             $table->unsignedBigInteger("offre_emplois_id")  
             ->references('id')->on('offre_emplois')->onDelete('cascade');
             $table->timestamps();

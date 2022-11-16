@@ -84,11 +84,11 @@ return [
     'mac_address' => 'The :attribute must be a valid MAC address.',
     'max' => [
         'numeric' => 'The :attribute must not be greater than :max.',
-        'file' => "Fichier trop voluminieux ! Taille maximale: :max kilobytes.",
+        'file' => "Fichier est trop volumineux ! Taille maximale: :max kilobytes.",
         'string' => 'The :attribute must not be greater than :max characters.',
         'array' => 'The :attribute must not have more than :max items.',
     ],
-    'mimes' => "Ce fichier doit de types :values",
+    'mimes' => "Ce fichier doit être de type(s): :values",
     'mimetypes' => "Ce fichier doit être de types :values",
     'min' => [
         'numeric' => 'The :attribute must be at least :min.',
@@ -99,7 +99,7 @@ return [
     'multiple_of' => 'The :attribute must be a multiple of :value.',
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
-    'numeric' => 'The :attribute must be a number.',
+    'numeric' => "L'attribut: :attribute doit être un entier",
     'password' => 'The password is incorrect.',
     'present' => 'The :attribute field must be present.',
     'prohibited' => 'The :attribute field is prohibited.',

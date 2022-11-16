@@ -16,7 +16,7 @@ class CreateOffreEmploisTable extends Migration
         Schema::create('offre_emplois', function (Blueprint $table) {
             $table->id();
             $table->string("titre");
-            $table->string("image");
+            $table->longText("image");
             $table->text("description");
             $table->date("date_limite");
             $table->string("status");

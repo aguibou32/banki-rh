@@ -71,9 +71,9 @@ Route::get('/', function () {
 
 // Dont forget to group all routes under auth for the auth middleware
 
-Route::get('/confirm-password', function () {
-    return view('auth.confirm-password');
-})->middleware('auth')->name('password.confirm');
+// Route::get('/confirm-password', function () {
+//     return view('auth.confirm-password');
+// })->middleware('auth')->name('password.confirm');
 
 Route::post('/confirm-password', function (Request $request) {
     if (! Hash::check($request->password, $request->user()->password)) {
@@ -119,10 +119,6 @@ Route::delete('/users/{user}/permissions/{permission}', 'UsersController@revokeP
 // Route::post('/activer_desactiver_utilisateur', [UsersController::class, 'activer_desactiver_utilisateur'])->name("activer_desactiver_utilisateur")->middleware("auth");
 Route::post('/activer_desactiver_utilisateur', 'UsersController@activer_desactiver_utilisateur')->name("activer_desactiver_utilisateur")->middleware("auth");
 
-
-// Route::get('/export', [UsersController::class, 'export'])->name("users.export")->middleware("auth");
-Route::get('/export', 'UsersController@export')->name("users.export")->middleware("auth");
-
 // Route::resource('divisions', DivisionsController::class)->middleware("auth");
 Route::resource('divisions', 'DivisionsController')->middleware("auth");
 
@@ -161,6 +157,10 @@ Route::get('/telecharger_fichier_annonce/{fichier}', 'AnnoncesController@telecha
 
 // Route::resource('reunions', ReunionsController::class)->middleware("auth");
 Route::resource('reunions', 'ReunionsController')->middleware("auth");
+
+Route::post("attach_reunion_user", 'ReunionsController@attach_reunion_user')->name("attach_reunion_user")->middleware("auth");
+
+Route::get("detach_reunion_user/{user_id}/{reunion_id}", 'ReunionsController@detach_reunion_user')->name("detach_reunion_user")->middleware("auth");
 
 // Route::get('/telecharger_fichier_reunion/{fichier}', [ReunionsController::class, 'telecharger_fichier_reunion'])->name("telecharger_fichier_reunion")->middleware("auth");
 Route::get('/telecharger_fichier_reunion/{fichier}', 'ReunionsController@telecharger_fichier_reunion')->name("telecharger_fichier_reunion")->middleware("auth");
@@ -260,6 +260,14 @@ Route::get('/telecharger_fichier_rapport/{fichier}', 'RapportsController@telecha
 
 // Route::resource('stockage', StockagesController::class)->middleware(["auth"]);
 Route::resource('stockage', 'StockagesController')->middleware(["auth"]);
+
+// Route::resource('stockage', StockagesController::class)->middleware(["auth"]);
+Route::resource('fiches_de_paie', 'FichesDePaieController')->middleware(["auth"]);
+Route::get('/telecharger_fichier_paie/{fichier}', 'FichesDePaieController@telecharger_fichier_paie')->name("telecharger_fichier_paie")->middleware("auth");
+Route::get('/employee_confirmation/{fiche_id}', 'FichesDePaieController@employee_confirmation')->name("employee_confirmation")->middleware("auth");
+
+Route::resource('accounts', 'AccountsController')->middleware(["auth"]);
+Route::resource('transactions', 'TransactionsController')->middleware(["auth"]);
 
 // Route::resource('contrats', ContratsController::class)->middleware(["auth"]);
 Route::resource('contrats', 'ContratsController')->middleware(["auth"]);

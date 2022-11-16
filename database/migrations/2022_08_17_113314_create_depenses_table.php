@@ -18,7 +18,7 @@ class CreateDepensesTable extends Migration
             $table->string("intitulé");
             $table->double("montant");
             $table->text("description");
-            $table->string("facture")->nullable();
+            $table->longText("facture")->nullable();
             $table->timestamps();
         });
     }

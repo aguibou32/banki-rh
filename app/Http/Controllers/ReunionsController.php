@@ -18,8 +18,10 @@ class ReunionsController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+
         $reunions = Reunion::latest()->get();
-        return view("reunions.index")->with("reunions", $reunions);
+        return view("reunions.index")->with("user", $user)->with("reunions", $reunions);
     }
 
     /**
@@ -105,7 +107,9 @@ class ReunionsController extends Controller
     public function edit($id)
     {
         $reunion = Reunion::findOrFail($id);
-        return view("reunions.edit")->with("reunion", $reunion);
+        $users = User::whereNotIn('name', ['Super'])->get();
+        
+        return view("reunions.edit")->with("reunion", $reunion)->with("users", $users);
     }
 
     /**
@@ -135,7 +139,7 @@ class ReunionsController extends Controller
             ]);
             
             $filename = $request->fichier->getClientOriginalName();
-            $request->fichier->storeAs('annonces_fichiers',$filename,'public');
+            $request->fichier->storeAs('reunions_fichiers',$filename,'public');
             // $reunion->update(['fichier'=>$filename]);
             $reunion->fichier = $filename;
         }
@@ -165,6 +169,44 @@ class ReunionsController extends Controller
         
         $file_path = public_path('storage/reunions_fichiers/'.$file_name);
         return response()->download($file_path);
+    }
+
+    public function attach_reunion_user(Request $request){
+
+        $public = $request->public;
+
+        $reunion = Reunion::findOrFail(request("reunion_id"));
+
+        if ($public == "on") {
+
+            $users = User::whereNotIn('name', ['Super'])->get();
+
+            foreach ($users as $user) {
+                if (!($user->reunions($reunion)->exists())) {
+                    $user->reunions()->attach($reunion);
+                }
+            }
+            return redirect()->back()->with("message", "Rapport est rendu publique");
+        }
+        else{
+            $user = User::findOrFail(request("user_id"));
+           
+            if (!($user->reunions($reunion)->exists())) {
+                $user->reunions()->attach($reunion);
+                return redirect()->back()->with("message", "Accès à ce rapport donné à l'utilisateur");
+            }
+        }
+    }
+
+
+    public function detach_reunion_user($user_id, $reunion_id){
+        $reunion = Reunion::findOrFail($reunion_id);
+        $user = User::findOrFail($user_id);
+
+        $user->reunions()->detach($reunion);
+        return redirect()->back()->with("message", "Accès à ce rapport révoqué à l'utilisateur");
+
+
     }
 
 }
